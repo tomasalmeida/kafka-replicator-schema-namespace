@@ -79,7 +79,6 @@ services:
       CONTROL_CENTER_COMMAND_TOPIC_REPLICATION: 1
       CONTROL_CENTER_METRICS_TOPIC_REPLICATION: 1
       CONTROL_CENTER_KAFKA_SRC_BOOTSTRAP_SERVERS: 'srcKafka:19091'
-      CONTROL_CENTER_CONNECT_SRC_CLUSTER: http://connect:8083
 
   ################  ################  ################  ################
   #                        DESTINATION CLUSTER
@@ -137,6 +136,7 @@ services:
     depends_on:
       - destKafka
       - destSchemaregistry
+      - connect
     ports:
       - "29021:9021"
     environment:
@@ -147,7 +147,7 @@ services:
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://destSchemaregistry:8086"
-
+      CONTROL_CENTER_CONNECT_SRC_CLUSTER: http://connect:8083
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       CONTROL_CENTER_UI_AUTOUPDATE_ENABLE: "false"
       CONTROL_CENTER_COMMAND_TOPIC_REPLICATION: 1
@@ -167,7 +167,7 @@ services:
     volumes:
       - mi3:/usr/share/replicator/kafka-connect-replicator/
     environment:
-      CONNECT_BOOTSTRAP_SERVERS: "srcKafka:19092"
+      CONNECT_BOOTSTRAP_SERVERS: "destKafka:29092"
       CONNECT_LISTENERS: "http://0.0.0.0:8083"
       CONNECT_CONFIG_STORAGE_TOPIC: connect-configs
       CONNECT_OFFSET_STORAGE_TOPIC: connect-offsets

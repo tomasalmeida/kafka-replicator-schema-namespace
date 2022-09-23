@@ -41,13 +41,13 @@ DATA=$( cat << EOF
 
     "topic.whitelist": "topic-test",
 
-    "src.kafka.bootstrap.servers": "http://srcKafka:19092",
+    "src.kafka.bootstrap.servers": "srcKafka:19092",
     "src.key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "src.key.converter.schemas.enable": "false",
     "src.value.converter": "io.confluent.connect.avro.AvroConverter",
     "src.value.converter.schema.registry.url": "http://srcSchemaregistry:8085",
 
-    "dest.kafka.bootstrap.servers": "http://destKafka:29092",
+    "dest.kafka.bootstrap.servers": "destKafka:29092",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "key.converter.schemas.enable": "false",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
